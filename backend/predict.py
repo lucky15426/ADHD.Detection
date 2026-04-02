@@ -7,11 +7,7 @@ import numpy as np
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-try:
-    from tensorflow.keras.preprocessing.sequence import pad_sequences
-    HAS_TENSORFLOW = True
-except ImportError:
-    HAS_TENSORFLOW = False
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from model_loader import (
     get_model, 
@@ -78,22 +74,18 @@ def make_prediction(input_data: dict) -> dict:
     proba_text = 0.5
     text_analyzed = False
     
-    if HAS_TENSORFLOW and dl_model and tokenizer and journal_text:
+    if dl_model and tokenizer and journal_text:
         cleaned = clean_text(journal_text)
         if cleaned:
-            try:
-                # Tokenization and Padding
-                seq = tokenizer.texts_to_sequences([cleaned])
-                padded = pad_sequences(seq, maxlen=MAX_SEQ_LEN)
-                
-                # Predict
-                pred = dl_model.predict(padded)
-                # ANN output is usually a probability (0 to 1)
-                proba_text = float(pred[0][0])
-                text_analyzed = True
-            except Exception as e:
-                print(f"⚠️ Text prediction error: {e}")
-                text_analyzed = False
+            # Tokenization and Padding
+            seq = tokenizer.texts_to_sequences([cleaned])
+            padded = pad_sequences(seq, maxlen=MAX_SEQ_LEN)
+            
+            # Predict
+            pred = dl_model.predict(padded)
+            # ANN output is usually a probability (0 to 1)
+            proba_text = float(pred[0][0])
+            text_analyzed = True
 
     # 3. Hybrid Combination
     if text_analyzed:

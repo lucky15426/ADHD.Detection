@@ -1,11 +1,7 @@
 import os
 import json
 import joblib
-try:
-    import tensorflow as tf
-    HAS_TENSORFLOW = True
-except ImportError:
-    HAS_TENSORFLOW = False
+import tensorflow as tf
 
 _model = None
 _feature_names = None
@@ -61,14 +57,10 @@ def get_vectorizer():
 def get_dl_model():
     """Returns the Deep Learning (ANN) model."""
     global _dl_model
-    if _dl_model is None and HAS_TENSORFLOW:
+    if _dl_model is None:
         path = os.path.join(MODEL_DIR, "dl_model", "adhd_dl_model.h5")
         if os.path.exists(path):
-            try:
-                _dl_model = tf.keras.models.load_model(path)
-            except Exception as e:
-                print(f"⚠️ Error loading DL model: {e}")
-                _dl_model = None
+            _dl_model = tf.keras.models.load_model(path)
     return _dl_model
 
 
@@ -78,9 +70,5 @@ def get_tokenizer():
     if _tokenizer is None:
         path = os.path.join(MODEL_DIR, "dl_model", "tokenizer.pkl")
         if os.path.exists(path):
-            try:
-                _tokenizer = joblib.load(path)
-            except Exception as e:
-                print(f"⚠️ Could not load DL tokenizer (likely missing Keras/TF): {e}")
-                _tokenizer = None
+            _tokenizer = joblib.load(path)
     return _tokenizer

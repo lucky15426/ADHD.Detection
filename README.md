@@ -1,62 +1,29 @@
-# ADHD Vision — Advanced Assessment Web App
-
-A full-stack application for ADHD behavioral pattern prediction using Machine Learning (FastAPI + React).
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-- Python 3.9+ 
-- Node.js 18+ (npm)
-
+---
+title: ADHD Detection System
+emoji: 🧠
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+pinned: false
 ---
 
-### 2. Backend Setup (FastAPI)
+# ADHD Detection System (Backend)
 
-1. Open a terminal and navigate to the `backend` folder:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. (Optional) Retrain the model (the model is already pre-trained):
-   ```bash
-   python train_model.py
-   ```
-4. Start the API server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-   The backend will run on [http://localhost:8000](http://localhost:8000).
+This is the FastAPI backend for the ADHD Detection System, featuring a Hybrid CNN-LSTM Neural Network for linguistic analysis and a Random Forest model for behavioral assessment.
 
----
+## Deployment Details
 
-### 3. Frontend Setup (React + Vite)
+- **Framework**: FastAPI
+- **Model**: CNN + LSTM (TensorFlow)
+- **Deployment Platform**: Hugging Face Spaces (Docker)
+- **Frontend**: Vercel
 
-1. Open a **new** terminal and navigate to the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-   The application will be available at [http://localhost:5173](http://localhost:5173).
+## API Endpoints
 
----
+- `POST /predict`: Submit behavioral data and journal text for ADHD assessment.
+- `POST /recommend`: Get IKS-based wellness recommendations.
+- `GET /health`: Service health check.
 
-## 🛠️ Features
-- **Multi-step Assessment**: Validated behavioral metrics collection (Focus, Hyperactivity, Lifestyle).
-- **AI Prediction**: Custom RandomForest model trained on behavioral signatures.
-- **Dynamic Visualization**: Radar charts and probability gauges for clear feedback.
-- **Modern UI**: Built with Tailwind CSS, Framer Motion, and Lucide icons.
-- **Future Ready**: Pluggable architecture for recommendation engines.
+## Setup for Hugging Face
 
-## 📁 Project Structure
-- `/backend`: FastAPI application, model logic, and training scripts.
-- `/frontend`: React source code, components, services, and styles.
+This Space is configured to run the `backend` directory using the provided `Dockerfile`. It listens on port **7860**.

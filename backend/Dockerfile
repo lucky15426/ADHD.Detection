@@ -25,5 +25,9 @@ COPY . .
 # Exposure port (Render uses $PORT)
 EXPOSE 7860
 
-# Run the application (Render assigns a random port; use the env var)
-CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-7860}"]
+# ─── Final Runtime Stage ──────────────────────────────────────────
+ENV PORT=7860
+EXPOSE 7860
+
+# Run the FastAPI server
+CMD uvicorn main:app --host 0.0.0.0 --port 7860
