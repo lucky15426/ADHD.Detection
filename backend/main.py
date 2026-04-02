@@ -36,11 +36,10 @@ async def lifespan(app: FastAPI):
     print("📥 Loading ML models into memory...")
     get_model()          # Behavioral Model
     get_feature_names()  # Feature Names
-    get_dl_model()       # Deep Learning Model
-    get_tokenizer()      # DL Tokenizer
+    # get_dl_model()       # Skip loading heavy DL model locally
+    # get_tokenizer()      # Skip loading tokenizer locally
     
-    print("✓ Neural Network Weights Verified (.h5)")
-    print("✓ Tokenizer Artifacts Loaded (.pkl)")
+    print("✓ Behavioral Model Loaded (.pkl)")
     print("="*50 + "\n")
     yield
 
