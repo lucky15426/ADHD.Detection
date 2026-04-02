@@ -95,6 +95,15 @@ class PredictionResult(BaseModel):
 
 # ─── Endpoints ────────────────────────────────────────────────────
 
+@app.get("/")
+def read_root():
+    return {
+        "status": "online",
+        "message": "ADHD Assessment API is running with CNN-LSTM Neural Network.",
+        "endpoints": ["/health", "/predict", "/recommend"]
+    }
+
+
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
