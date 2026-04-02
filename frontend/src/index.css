@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-adhd-blue: #1e40af;
+  --color-adhd-green: #10b981;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+
+  /* Force Light Mode Defaults */
+  color: #0f172a;
+  background-color: #f8fafc;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Fix for Form Elements */
+input,
+select,
+textarea,
+button {
+  color: #0f172a !important;
+}
+
+/* Ensure white text is ONLY on colored backgrounds */
+.text-white {
+  color: white !important;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background-color: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .min-h-screen {
+    min-height: auto !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .max-w-5xl {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Ensure charts and cards are visible and well-spaced */
+  .bg-white {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 1rem !important;
+  }
+
+  .grid {
+    display: block !important;
+  }
+
+  .lg\:col-span-2,
+  .lg\:grid-cols-2,
+  .lg\:grid-cols-3 {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Force page breaks if needed */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Specific tweaks for Recharts inside print */
+  .recharts-responsive-container {
+    width: 100% !important;
+    height: 400px !important;
+  }
+}
