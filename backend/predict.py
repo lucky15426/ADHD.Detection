@@ -134,5 +134,6 @@ def make_prediction(input_data: dict) -> dict:
             "behavioral_proba": round(proba_behavioral, 4),
             "text_proba":       round(proba_text, 4) if text_analyzed else None,
             "text_analyzed":    text_analyzed
-        }
+        },
+        "iks_recommendations": {}
     }

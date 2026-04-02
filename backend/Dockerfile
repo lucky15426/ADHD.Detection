@@ -17,7 +17,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Pre-download NLTK data
-RUN python -m nltk.downloader stopwords wordnet
+RUN python -m nltk.downloader stopwords wordnet omw-1.4
 
 # Copy the rest of the application code
 COPY . .
