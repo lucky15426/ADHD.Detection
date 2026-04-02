@@ -8,12 +8,7 @@ ENV PORT=7860
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    && rm -rf /var/lib/apt/lists/*
+# No system dependencies needed for standard wheels
 
 # Copy the requirements file into the container
 COPY requirements.txt .
