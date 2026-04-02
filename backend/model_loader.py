@@ -78,5 +78,9 @@ def get_tokenizer():
     if _tokenizer is None:
         path = os.path.join(MODEL_DIR, "dl_model", "tokenizer.pkl")
         if os.path.exists(path):
-            _tokenizer = joblib.load(path)
+            try:
+                _tokenizer = joblib.load(path)
+            except Exception as e:
+                print(f"⚠️ Could not load DL tokenizer (likely missing Keras/TF): {e}")
+                _tokenizer = None
     return _tokenizer
