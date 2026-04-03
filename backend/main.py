@@ -19,28 +19,9 @@ from model_loader import (
 async def lifespan(app: FastAPI):
     # Model Evaluation Stage - Academic Showcase
     print("="*50)
-    print("🚀 ADHD ASSESSMENT SYSTEM - MODEL EVALUATION STAGE")
+    print("🚀 ADHD ASSESSMENT SYSTEM - READY")
     print("="*50)
-    print("Model Type: CNN + LSTM Hybrid Neural Network")
-    print("-" * 50)
-    print(f"{'Metric':<15} | {'Value':<10}")
-    print("-" * 50)
-    print(f"{'Accuracy':<15} | 0.8910 (89.1%)")
-    print(f"{'Precision':<15} | 0.8642")
-    print(f"{'Recall':<15} | 0.9282")
-    print(f"{'F1 Score':<15} | 0.8951")
-    print(f"{'ROC AUC':<15} | 0.9650")
-    print("="*50)
-    
-    # Pre-loading models
-    print("📥 Loading ML models into memory...")
-    get_model()          # Behavioral Model
-    get_feature_names()  # Feature Names
-    get_dl_model()       # Deep Learning Model
-    get_tokenizer()      # DL Tokenizer
-    
-    print("✓ Neural Network Weights Verified (.h5)")
-    print("✓ Tokenizer Artifacts Loaded (.pkl)")
+    print("Mode: Lazy-Loading (Models load on first request to ensure fast startup)")
     print("="*50 + "\n")
     yield
 
