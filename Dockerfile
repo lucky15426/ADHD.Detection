@@ -8,8 +8,8 @@ ENV PORT=7860
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file from the backend directory
-COPY backend/requirements.txt .
+# Copy the requirements file
+COPY backend/requirements.txt ./requirements.txt
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -17,11 +17,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Pre-download NLTK data
 RUN python -m nltk.downloader stopwords wordnet omw-1.4
 
-# Copy the rest of the backend application code
+# Copy all application code from backend/ to current directory
 COPY backend/ .
 
-# Exposure port for Hugging Face Spaces
+# Expose the standard Hugging Face port
 EXPOSE 7860
 
-# Run the FastAPI server
+# Run the FastAPI server using the stable EXEC format
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860"]

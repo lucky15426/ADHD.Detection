@@ -54,6 +54,8 @@ venv.bak/
 Thumbs.db
 
 # Project-specific
+*.csv
+*.csv2
 backend/training/outputs/
 backend/training/models/*.h5
 backend/training/models/*.json
