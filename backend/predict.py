@@ -61,9 +61,22 @@ def make_prediction(input_data: dict) -> dict:
     model = get_model()
     feature_names = get_feature_names()
     
+    # Default baseline values for missing features (healthy/non-ADHD baseline)
+    DEFAULT_VALS = {
+        "focus_level": 1.0,
+        "hyperactivity": 1.0,
+        "impulsiveness": 1.0,
+        "stress_level": 1.0,
+        "attention_span": 10.0,
+        "task_completion": 10.0,
+        "sleep_hours": 8.0,
+        "screen_time": 2.0,
+        "age": 25.0
+    }
+    
     proba_behavioral = 0.5
     if model and feature_names:
-        features = [float(input_data.get(feat, 5)) for feat in feature_names]
+        features = [float(input_data.get(feat, DEFAULT_VALS.get(feat, 5.0))) for feat in feature_names]
         proba_behavioral = model.predict_proba(np.array([features]))[0][1]
 
     # 2. Text Prediction (Now using Deep Learning / ANN)

@@ -1,20 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-adhd-blue: #1e40af;
+  --color-adhd-blue: #2563eb;
+  --color-adhd-dark: #0f172a;
   --color-adhd-green: #10b981;
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Outfit', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light;
-
-  /* Force Light Mode Defaults */
   color: #0f172a;
-  background-color: #f8fafc;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,76 +21,64 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Fix for Form Elements */
-input,
-select,
-textarea,
-button {
-  color: #0f172a !important;
-}
-
-/* Ensure white text is ONLY on colored backgrounds */
-.text-white {
-  color: white !important;
-}
-
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: #ffffff;
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+/* Premium Light Mode Glassmorphism */
+.glass {
+  background: rgba(15, 23, 42, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.1);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Custom Selection Color */
+::selection {
+  background: rgba(37, 99, 235, 0.1);
+  color: #1e40af;
 }
 
 @media print {
   .no-print {
     display: none !important;
-  }
-
-  body {
-    background-color: white !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .min-h-screen {
-    min-height: auto !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  .max-w-5xl {
-    max-width: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  /* Ensure charts and cards are visible and well-spaced */
-  .bg-white {
-    border: none !important;
-    box-shadow: none !important;
-    padding: 1rem !important;
-  }
-
-  .grid {
-    display: block !important;
-  }
-
-  .lg\:col-span-2,
-  .lg\:grid-cols-2,
-  .lg\:grid-cols-3 {
-    grid-column: span 1 !important;
-    width: 100% !important;
-    margin-bottom: 2rem !important;
-  }
-
-  /* Force page breaks if needed */
-  .page-break {
-    page-break-before: always;
-  }
-
-  /* Specific tweaks for Recharts inside print */
-  .recharts-responsive-container {
-    width: 100% !important;
-    height: 400px !important;
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Save, User, Activity, Coffee } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Save, User, Activity, Coffee, Sparkles } from 'lucide-react';
 import { predictADHD } from '../services/api';
 
 const AssessmentPage = () => {
@@ -11,14 +11,14 @@ const AssessmentPage = () => {
     age: 22,
     gender: 'Other',
     education: 'Bachelor',
-    sleep_hours: 7.0,
-    screen_time: 5.0,
-    focus_level: 5.0,
-    hyperactivity: 5.0,
-    impulsiveness: 5.0,
-    stress_level: 5.0,
-    attention_span: 5.0,
-    task_completion: 5.0,
+    sleep_hours: 8.0,
+    screen_time: 2.0,
+    focus_level: 1.0,
+    hyperactivity: 1.0,
+    impulsiveness: 1.0,
+    stress_level: 1.0,
+    attention_span: 10.0,
+    task_completion: 10.0,
     journal_text: '',
   });
   const [loading, setLoading] = useState(false);
@@ -62,25 +62,41 @@ const AssessmentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl shadow-slate-200 border border-slate-100 overflow-hidden">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="relative min-h-screen bg-white py-12 px-4 z-10 flex items-center justify-center selection:bg-blue-100 selection:text-blue-700"
+    >
+      <div className="max-w-2xl w-full glass-card rounded-[2.5rem] overflow-hidden">
         {/* Progress Bar */}
-        <div className="h-2 bg-slate-100 w-full overflow-hidden">
+        <div className="h-1.5 bg-white/5 w-full overflow-hidden">
           <motion.div
-            className="h-full bg-blue-600"
-            initial={{ width: '25%' }}
+            className="h-full bg-blue-600 shadow-[0_0_15px_rgba(37,99,235,0.6)]"
+            initial={{ width: '0%' }}
             animate={{ width: `${(step / 4) * 100}%` }}
+            transition={{ type: "spring", stiffness: 50, damping: 20 }}
           />
         </div>
 
-        <div className="p-8">
-          <div className="flex items-center justify-between mb-8">
-            <button onClick={() => navigate('/')} className="text-slate-400 hover:text-slate-600 transition-colors">
-              <ArrowLeft className="w-6 h-6" />
+        <div className="p-8 md:p-12">
+          <div className="flex items-center justify-between mb-10">
+            <button 
+                onClick={() => navigate('/')} 
+                className="group flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-all font-bold"
+            >
+              <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-slate-200 transition-colors">
+                <ArrowLeft className="w-5 h-5" />
+              </div>
+              <span className="text-sm uppercase tracking-widest hidden sm:inline">Exit</span>
             </button>
-            <div className="flex gap-2">
+            
+            <div className="flex gap-2.5">
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className={`w-3 h-3 rounded-full ${step === i ? 'bg-blue-600' : 'bg-slate-200'}`} />
+                <div 
+                    key={i} 
+                    className={`h-1.5 transition-all duration-500 rounded-full ${step === i ? 'w-8 bg-blue-500' : 'w-2 bg-white/10'}`} 
+                />
               ))}
             </div>
           </div>
@@ -92,17 +108,21 @@ const AssessmentPage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <div className="flex items-center gap-3 text-slate-900 mb-2">
-                  <User className="w-6 h-6 text-blue-600" />
-                  <h2 className="text-2xl font-bold text-slate-900">Personal Information</h2>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 text-blue-600">
+                    <User className="w-5 h-5" />
+                    <span className="text-xs font-black uppercase tracking-[0.2em]">Step 01</span>
+                  </div>
+                  <h2 className="text-4xl font-black text-slate-900 tracking-tight">Personal Profile</h2>
+                  <p className="text-slate-500 text-sm font-medium">Basic demographics for baseline comparison.</p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <InputGroup label="Age" name="age" value={formData.age} onChange={handleChange} min={10} max={100} type="number" />
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <SelectGroup label="Gender" name="gender" value={formData.gender} onChange={handleChange} options={['Male', 'Female', 'Other']} />
                     <SelectGroup label="Education" name="education" value={formData.education} onChange={handleChange} options={['High School', 'Bachelor', 'Master', 'PhD']} />
                   </div>
@@ -116,17 +136,22 @@ const AssessmentPage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <div className="flex items-center gap-3 text-slate-900 mb-2">
-                  <Activity className="w-6 h-6 text-blue-600" />
-                  <h2 className="text-2xl font-bold">Behavioral Assessment</h2>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 text-blue-600">
+                    <Activity className="w-5 h-5" />
+                    <span className="text-xs font-black uppercase tracking-[0.2em]">Step 02</span>
+                  </div>
+                  <h2 className="text-4xl font-black text-slate-900 tracking-tight">Behavioral Habits</h2>
+                  <p className="text-slate-500 text-sm font-medium">How you typically act and react.</p>
                 </div>
 
-                <div className="space-y-8">
-                  <SliderGroup label="Focus Level" description="How easy is it for you to stay focused?" name="focus_level" value={formData.focus_level} onChange={handleSliderChange} />
-                  <SliderGroup label="Hyperactivity" description="Do you often feel restless or physically active?" name="hyperactivity" value={formData.hyperactivity} onChange={handleSliderChange} />
-                  <SliderGroup label="Impulsiveness" description="Do you make quick decisions without thinking?" name="impulsiveness" value={formData.impulsiveness} onChange={handleSliderChange} />
+                <div className="space-y-10">
+                  <SliderGroup label="Focus Difficulty" description="Difficulty staying focused on one thing" name="focus_level" value={formData.focus_level} onChange={handleSliderChange} />
+                  <SliderGroup label="Restlessness" description="Feeling the need to move or fidget constantly" name="hyperactivity" value={formData.hyperactivity} onChange={handleSliderChange} />
+                  <SliderGroup label="Acting on Impulse" description="Tendency to do things without thinking first" name="impulsiveness" value={formData.impulsiveness} onChange={handleSliderChange} />
+                  <SliderGroup label="Attention Span" description="How long you can pay attention to one thing" name="attention_span" value={formData.attention_span} onChange={handleSliderChange} />
                 </div>
               </motion.div>
             )}
@@ -137,21 +162,24 @@ const AssessmentPage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <div className="flex items-center gap-3 text-slate-900 mb-2">
-                  <Coffee className="w-6 h-6 text-blue-600" />
-                  <h2 className="text-2xl font-bold">Lifestyle & Productivity</h2>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 text-blue-600">
+                    <Coffee className="w-5 h-5" />
+                    <span className="text-xs font-black uppercase tracking-[0.2em]">Step 03</span>
+                  </div>
+                  <h2 className="text-4xl font-black text-slate-900 tracking-tight">Lifestyle & Sleep</h2>
+                  <p className="text-slate-500 text-sm font-medium">Your daily routines and environment.</p>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-10">
                   <div className="grid grid-cols-2 gap-6">
-                    <InputGroup label="Sleep Hours" name="sleep_hours" value={formData.sleep_hours} onChange={handleChange} type="number" step="0.5" />
+                    <InputGroup label="Sleep (Hours)" name="sleep_hours" value={formData.sleep_hours} onChange={handleChange} type="number" step="0.5" />
                     <InputGroup label="Screen Time" name="screen_time" value={formData.screen_time} onChange={handleChange} type="number" step="0.5" />
                   </div>
-                  <SliderGroup label="Attention Span" description="How long can you focus on a single task?" name="attention_span" value={formData.attention_span} onChange={handleSliderChange} />
-                  <SliderGroup label="Task Completion" description="Do you often finish what you start?" name="task_completion" value={formData.task_completion} onChange={handleSliderChange} />
-                  <SliderGroup label="Stress Level" description="How stressed have you felt lately?" name="stress_level" value={formData.stress_level} onChange={handleSliderChange} />
+                  <SliderGroup label="Finishing Tasks" description="How often you finish the tasks you start" name="task_completion" value={formData.task_completion} onChange={handleSliderChange} />
+                  <SliderGroup label="Stress Level" description="How much stress or pressure you feel daily" name="stress_level" value={formData.stress_level} onChange={handleSliderChange} />
                 </div>
               </motion.div>
             )}
@@ -162,102 +190,130 @@ const AssessmentPage = () => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <div className="flex items-center gap-3 text-slate-900 mb-2">
-                  <Save className="w-6 h-6 text-blue-600" />
-                  <h2 className="text-2xl font-bold">Personal Journal (AI Text Analysis)</h2>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3 text-blue-600">
+                    <Sparkles className="w-5 h-5" />
+                    <span className="text-xs font-black uppercase tracking-[0.2em]">Final Phase</span>
+                  </div>
+                  <h2 className="text-4xl font-black text-slate-900 tracking-tight">Writing Sample</h2>
+                  <p className="text-slate-500 text-sm font-medium">Share your thoughts to help the AI analyze your patterns.</p>
                 </div>
 
-                <div className="space-y-4">
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    Our AI models will analyze your writing for patterns associated with ADHD. Describe your daily challenges, thoughts, or any experiences you think are relevant.
-                  </p>
-                  <textarea
-                    name="journal_text"
-                    value={formData.journal_text}
-                    onChange={handleChange}
-                    placeholder="E.g., I find it really hard to start tasks, even when I know they are important. My mind often drifts to other things..."
-                    className="w-full h-48 bg-slate-50 border border-slate-200 rounded-2xl p-6 outline-none focus:border-blue-600 transition-colors resize-none leading-relaxed"
-                  />
-                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 flex gap-3 text-blue-600 text-xs font-medium">
-                    <div className="w-2 h-2 rounded-full bg-blue-600 mt-1 shrink-0" />
-                    Our trained models analyze tone, vocabulary, and linguistic patterns from your actual dataset recordings.
+                <div className="space-y-6">
+                  <div className="relative">
+                    <textarea
+                        name="journal_text"
+                        value={formData.journal_text}
+                        onChange={handleChange}
+                        placeholder="Type or paste a personal journal entry or a description of your typical day..."
+                        className="w-full h-56 bg-slate-50 border border-slate-200 rounded-[2rem] p-8 text-slate-900 outline-none focus:border-blue-500/50 transition-all resize-none leading-relaxed placeholder:text-slate-300"
+                    />
+                    <div className="absolute bottom-6 right-8 text-[10px] font-black text-slate-300 uppercase tracking-widest">
+                        {formData.journal_text.length} Characters
+                    </div>
+                  </div>
+                  
+                  <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 flex gap-4">
+                    <div className="p-2 bg-blue-100 rounded-lg h-fit">
+                        <Activity className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <div>
+                        <p className="text-blue-700 text-xs leading-relaxed font-semibold">
+                            Our **AI Neural Network** will process this text to identify patterns and variances in the ADHD risk profile.
+                        </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          <div className="flex items-center justify-between mt-12 pt-8 border-t border-slate-100">
+          <div className="flex items-center justify-between mt-12 pt-10 border-t border-white/5">
             {step > 1 ? (
               <button
                 onClick={prevStep}
-                className="flex items-center gap-2 text-slate-600 font-bold hover:text-blue-600 transition-colors"
+                className="flex items-center gap-2 text-slate-400 font-black uppercase tracking-widest text-xs hover:text-slate-900 transition-colors"
                 disabled={loading}
               >
-                <ArrowLeft className="w-5 h-5" /> Back
+                <ArrowLeft className="w-4 h-4" /> Back
               </button>
             ) : <div />}
 
             {step < 4 ? (
               <button
                 onClick={nextStep}
-                className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all cursor-pointer"
+                className="group flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-blue-900/20 transition-all transform active:scale-95"
               >
-                Next <ArrowRight className="w-5 h-5 text-white" />
+                Next Step <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             ) : (
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className={`flex items-center gap-2 bg-emerald-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-100 transition-all cursor-pointer ${loading ? 'opacity-70' : 'hover:bg-emerald-700'}`}
+                className={`flex items-center gap-3 bg-slate-900 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl transition-all transform active:scale-95 ${loading ? 'opacity-50 cursor-wait' : 'hover:bg-slate-800'}`}
               >
-                {loading ? 'Analyzing...' : <><Save className="w-5 h-5 text-white" /> Get Prediction</>}
+                {loading ? 'Synthesizing...' : <><Save className="w-4 h-4" /> Run Diagnosis</>}
               </button>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const InputGroup = ({ label, ...props }) => (
-  <div className="space-y-1">
-    <label className="text-sm font-bold text-slate-700">{label}</label>
-    <input {...props} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-blue-600 transition-colors" />
+  <div className="space-y-2">
+    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">{label}</label>
+    <input 
+      {...props} 
+      className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 outline-none focus:border-blue-500/50 transition-all font-bold placeholder:text-slate-200" 
+    />
   </div>
 );
 
 const SelectGroup = ({ label, options, ...props }) => (
-  <div className="space-y-1">
-    <label className="text-sm font-bold text-slate-700">{label}</label>
-    <select {...props} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-blue-600 transition-colors">
-      {options.map(o => <option key={o} value={o}>{o}</option>)}
-    </select>
+  <div className="space-y-2">
+    <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">{label}</label>
+    <div className="relative">
+        <select 
+            {...props} 
+            className="w-full appearance-none bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4 text-slate-900 outline-none focus:border-blue-500/50 transition-all font-bold cursor-pointer"
+        >
+            {options.map(o => <option key={o} value={o} className="bg-white text-slate-900">{o}</option>)}
+        </select>
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-300">
+            <ArrowRight className="w-4 h-4 rotate-90" />
+        </div>
+    </div>
   </div>
 );
 
 const SliderGroup = ({ label, description, name, value, onChange }) => (
-  <div className="space-y-3">
-    <div className="flex justify-between items-end">
-      <div>
-        <h4 className="font-bold text-slate-800">{label}</h4>
-        <p className="text-xs text-slate-500">{description}</p>
+  <div className="space-y-4">
+    <div className="flex justify-between items-end px-2">
+      <div className="space-y-1">
+        <h4 className="font-black text-slate-900 text-lg tracking-tight">{label}</h4>
+        <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">{description}</p>
       </div>
-      <span className="text-blue-600 font-bold text-lg">{value}</span>
+      <div className="text-blue-600 font-black text-xl tabular-nums">
+        {value.toFixed(1)}
+      </div>
     </div>
-    <input
-      type="range"
-      min="1" max="10" step="0.5"
-      value={value}
-      onChange={(e) => onChange(name, e.target.value)}
-      className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
-    />
-    <div className="flex justify-between text-[10px] text-slate-400 font-medium">
-      <span>Low / Poor</span>
-      <span>High / Excellent</span>
+    <div className="relative pt-2">
+        <input
+            type="range"
+            min="1" max="10" step="0.5"
+            value={value}
+            onChange={(e) => onChange(name, e.target.value)}
+            className="w-full h-1.5 bg-slate-100 rounded-full appearance-none cursor-pointer accent-blue-600 hover:accent-blue-500"
+        />
+        <div className="flex justify-between text-[9px] text-slate-300 font-black uppercase tracking-[0.2em] mt-3">
+            <span>Minimum</span>
+            <span>Maximum</span>
+        </div>
     </div>
   </div>
 );
